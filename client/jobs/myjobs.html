@@ -1,0 +1,24 @@
+<!-- List of Current Jobs of the User below -->
+
+<div class="jobs contents-container">
+  <h3> My Jobs </h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>List Name</th>
+        <th>Location</th>
+        <th>Due</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="job in data.jobs | orderBy:'due_at' | filter:search" >
+      <!-- this is lame way to do it to prevent clicking delete to show details -->
+        <td ng-click="displayJobDetail(this.job._id)">{{ job.name }}</td>
+        <td ng-click="displayJobDetail(this.job._id)">{{ job.delivery_address.city }}, {{ job.delivery_address.state }}</td>
+        <td ng-click="displayJobDetail(this.job._id)"><span am-time-ago="job.due_at"></span></td>
+        <td><a ng-click="deleteJob(job); getJobs();" class="btn btn-primary btn-sm active">Delete Job</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

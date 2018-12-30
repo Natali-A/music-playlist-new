@@ -1,0 +1,69 @@
+html {
+  background-image: url(blue.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+body {
+  margin-left: 17%;
+  margin-right: 17%;
+  margin-top: 1%;
+  opacity: 0.95;
+}
+
+.items, .delivery-address {
+  padding: 3px;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-logo {
+  text-align: center;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px;
+}
+
+.top-nav-left, .top-nav-right {
+  display: inline-flex;
+}
+
+.signup-outer, .signin-outer {
+  background-color: steelblue;
+  padding: 20px;
+  text-align: center;
+}
+
+.signup-field, .signin-field {
+  padding-bottom: 3px;
+}
+
+.contents-container {
+  padding: 10px;
+}
+
+.top-nav-button {
+  margin: 2px;
+}
+
+#map_canvas {
+  height: 500px;
+  width: 100%;
+}
+
+img.listItemImg {
+  width: 70px;
+  height: 70px;
+}
+
+.spacer {
+  padding-left: 5px;
+  padding-right: 5px;
+}

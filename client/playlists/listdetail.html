@@ -1,0 +1,44 @@
+<!-- individual list item with details -->
+<div class="listdetail contents-container">
+    <h2 class="detail-header"><span>{{ displayList.name }}</span></h2>
+    <h6 class="detail-header" style="justify-content: end">
+        <span>Created by <b>{{ displayList.owner }}</b></span>
+        <span class="spacer">&diams;</span>
+        <span> {{displayList.tracks.length}} Songs, {{ durationTime }} min</span>
+        <span class="spacer">&diams;</span>
+        <span>{{ playlistCreated }}</span>
+    </h6>
+    <div class="items">
+            <div class="panel-default">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Duration</th>
+                        <th>Added by</th>
+                        <th>Likes #</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key, item) in displayList.tracks" track-id={{item.id}}>
+                        <td><img class="listItemImg" src={{item.album.images[0].url}} /></td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ getArtistsString(key) }}</td>
+                        <td> {{ millisToMinutesAndSeconds(item.duration_ms)}} </td>
+                        <td> {{ item.added_by }}</td>
+                        <td title={{likesDict[item.id].join(',')}}> {{ likesDict[item.id].length }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <span><a href='#/addTrackToPlayList' class="btn btn-primary btn-lg active top-nav-button">Add track</a></span>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+
+

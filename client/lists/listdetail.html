@@ -1,0 +1,48 @@
+<!-- individual list item with details -->
+<div class="listdetail contents-container">
+  <h2 class="detail-header"><span>{{ displayList.name }}</span><span>${{ displayList.offer_price }}</span><span>Due <span am-time-ago="displayList.due_at"></span></span></h2>
+
+  <div class="delivery-address">
+    <uib-accordion>
+      <div uib-accordion-group class="panel-default" is-open="status.open">
+        <uib-accordion-heading>
+          Delivery Address <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </uib-accordion-heading>
+          <div>{{ displayList.delivery_address.street }}</div>
+          <div>{{ displayList.delivery_address.city }}, {{ displayList.delivery_address.state }}</div>
+          <div>{{ displayList.delivery_address.zip_code }}</div>
+      </div>
+    </uib-accordion>
+  </div>
+
+
+  <div class="items">
+    <uib-accordion>
+      <div uib-accordion-group class="panel-default" is-open="status.open">
+        <uib-accordion-heading>
+          Items <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </uib-accordion-heading>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Unit Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in displayList.items">
+              <td>{{ item.item_name }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.unite_price }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </uib-accordion>
+  </div>
+</div>
+
+
+
+
