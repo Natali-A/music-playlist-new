@@ -129,20 +129,21 @@ var refresh_token = function(req, res) {
         json: true
     };
 
-    request.post(authOptions, function(error, response, body) {
+    res.json(authOptions);
+
+  /*  request.post(authOptions, function(error, response, body) {
         if (!error && response.statusCode === 200) {
             var access_token = body.access_token;
             res.send({
                 'access_token': access_token
             });
         }
-    });
+    });*/
 };
 
 
 module.exports = {
     login:login,
     callback:callback,
-
     refresh_token: refresh_token
 };

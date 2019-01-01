@@ -18,6 +18,10 @@
     <div id="login">
         <h1>This is an example of the Implicit Grant flow</h1>
         <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
+        <button id="login-button2" class="btn btn-primary">Log in22</button>
+        <button ng-click="spotifyLogin()">loggggg</button>
+        <button ng-click="SpotifyRefresh()">refresh</button>
+
     </div>
     <div id="loggedin">
         <div id="user-profile">
@@ -56,7 +60,7 @@
 
 <script>
     (function() {
-
+console.log('hi! im here');
         var stateKey = 'spotify_auth_state';
 
         /**
@@ -97,10 +101,14 @@
                 oauthPlaceholder = document.getElementById('oauth');
 
         var params = getHashParams();
+        console.log('params', params);
 
         var access_token = params.access_token,
                 state = params.state,
                 storedState = localStorage.getItem(stateKey);
+
+//        localStorage.setItem('spotify_access_token', access_token);
+
 
         console.log("access_token",access_token);
 
@@ -122,6 +130,10 @@
                         $('#loggedin').show();
                     }
                 });
+
+                localStorage.setItem('spotify_access_token', access_token);
+
+
             } else {
                 $('#login').show();
                 $('#loggedin').hide();
@@ -131,6 +143,28 @@
 
                 var client_id = '2e23ac219fa04c92bf1c870156ed0c83'; // Your client id
                 var redirect_uri = 'http://localhost:1337/#/spotifyLogin'; // Your redirect uri
+
+                var state = generateRandomString(16);
+
+                localStorage.setItem(stateKey, state);
+                var scope = 'user-read-private user-read-email';
+
+                var url = 'https://accounts.spotify.com/authorize';
+                url += '?response_type=token';
+                url += '&client_id=' + encodeURIComponent(client_id);
+                url += '&scope=' + encodeURIComponent(scope);
+                url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
+                url += '&state=' + encodeURIComponent(state);
+
+                window.location = url;
+            }, false);
+
+
+            document.getElementById('login-button2').addEventListener('click', function() {
+
+                var client_id = '2e23ac219fa04c92bf1c870156ed0c83'; // Your client id
+                //var client_secret = 'beb1afe554d24776baebefad3dcfe6e7'; // Your secret
+                var redirect_uri = 'http://localhost:1337/#/natali'; // Your redirect uri
 
                 var state = generateRandomString(16);
 

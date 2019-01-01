@@ -61,7 +61,7 @@ angular.module("crowdcart.lists", ["angularMoment"])
             if ($routeParams.listid) {
                 Lists.getOnePlayList($routeParams.listid)
                     .then(function (list) {
-                        debugger;
+                        console.log('nataaa', list);
                         $scope.displayList = list;
                         calcDuration(list.tracks);
                         $scope.playlistCreated = (new Date(list.created_at)).toLocaleString();

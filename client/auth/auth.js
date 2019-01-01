@@ -37,6 +37,12 @@ angular.module('crowdcart.auth', [])// make an auth module
     $scope.spotifyLogin = function() {
         var res;
         Auth.spotifyLogin(res);
+    };
+
+    $scope.SpotifyRefresh = function() {
+        Auth.refresh_token().then(function(res) {
+            console.log('res', res);
+        });
     }
 });
 

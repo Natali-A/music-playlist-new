@@ -88,13 +88,25 @@ angular.module("crowdcart.services",[])
     return text;
   };
 
+  var refresh_token = function() {
+    console.log('refresh_token');
+
+    return $http({
+      method: "GET",
+      url: "/api/SpotifyRefresh_token/"
+    })
+        .then(function(res) {
+          return res.data
+        });
+  }
 
   return {
     signin: signin,
     signup: signup,
     isAuthenticated: isAuthenticated,
     signout: signout,
-    spotifyLogin: spotifyLogin
+    spotifyLogin: spotifyLogin,
+    refresh_token: refresh_token
   }
 
 
