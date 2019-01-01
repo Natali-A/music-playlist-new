@@ -63,15 +63,10 @@ angular.module("crowdcart", [
         templateUrl: 'playlists/listdetail.html',
         controller: 'PlayListController'
   }).when('/natali',{ templateUrl: 'auth/natali.html', controller: 'AuthController'});
-    // .when('/findjobs', {
-    //   templateUrl: 'jobs/findjobs.html',
-    //   //controller: '',
-    //   authenticate: true
-    // })
-  /*  .otherwise({
+    /*.otherwise({
       redirectTo: "/mylists"
-    });*/
-
+    });
+*/
     $httpProvider.interceptors.push('AttachTokens');
 
 })
