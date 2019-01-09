@@ -42,71 +42,11 @@ angular.module("crowdcart.services",[])
     $location.path("/signin")
   }
 
-
-  var client_id = 'cc82ac3b5afe46c4a3af7525acf9a873';
-  var client_secret = '9838e7a885cd40b29ec44b1e7a40d826';
-  var redirect_uri = 'http://localhost:1337/callback';
-  var stateKey = 'spotify_auth_state';
-
-
-
-  var spotifyLogin = function () {
-    console.log('spotifyLogin');
-
-      return $http({
-        method: "GET",
-        url: "/api/SpotifyLogin/"
-      })
-          .then(function(res) {
-            return res.data
-          });
-
-  /*  var state = generateRandomString(16);
-    res.cookie(stateKey, state);
-    // your application requests authorization
-    var scope = 'user-read-email ' +
-        'user-read-recently-played ' +
-        'playlist-modify-private ' +
-        'playlist-read-collaborative';
-    res.redirect('https://accounts.spotify.com/authorize?' +
-        querystring.stringify({
-          response_type: 'code',
-          client_id: client_id,
-          scope: scope,
-          redirect_uri: redirect_uri,
-          state: state
-        }));*/
-  };
-
-  function generateRandomString(length) {
-    var text = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    for (var i = 0; i < length; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-  };
-
-  var refresh_token = function() {
-    console.log('refresh_token');
-
-    return $http({
-      method: "GET",
-      url: "/api/SpotifyRefresh_token/"
-    })
-        .then(function(res) {
-          return res.data
-        });
-  }
-
   return {
     signin: signin,
     signup: signup,
     isAuthenticated: isAuthenticated,
-    signout: signout,
-    spotifyLogin: spotifyLogin,
-    refresh_token: refresh_token
+    signout: signout
   }
 
 
@@ -254,6 +194,7 @@ angular.module("crowdcart.services",[])
     getTrackById : getTrackById
   };
 })
+
 .factory("Jobs", function($http) {
 
   // get all jobs for specific user

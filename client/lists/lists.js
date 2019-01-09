@@ -17,6 +17,7 @@ angular.module("crowdcart.lists", ["angularMoment"])
     var playlistUserName = JSON.parse(localStorage.getItem(localStorage.key("playlistUserName")));
     console.log(playlistUserName);
   };
+
   $scope.playlistUserName = getUser();
 
   var initialize = function () {

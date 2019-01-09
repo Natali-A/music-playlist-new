@@ -4,32 +4,59 @@
 <html ng-app="crowdcart">
   <head>
     <title>Music Playlist</title>
-      <link rel="shortcut icon" type="image/jpg" href="m2.jpg" sizes="32x32"/>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
   </head>
   <body ng-controller="AppController">
     <div class="top-nav">
       <div class="top-logo">
-        <img class="logo" src="m2.jpg" />
+        <!--<img src="crowdcartlogov2.png" />-->
       </div>
       <div class="top-nav-left">
-
-          <span><a href='#/mylists' class="btn btn-primary btn-lg active top-nav-button">my lists</a></span>
+        <span><a href='#/mylists' class="btn btn-primary btn-lg active top-nav-button">my lists</a></span>
+<!--        <span><a href='#/alllists' class="btn btn-primary btn-lg active top-nav-button">all lists</a></span>-->
           <span><a href='#/allplaylists' class="btn btn-primary btn-lg active top-nav-button">all playlists</a></span>
           <span> <a href="/api/SpotifyLogin" class="btn btn-primary">Log in with Spotify</a></span>
+
           <!-- <span><a href='#/myjobs' class="btn btn-primary btn-lg active top-nav-button">my jobs</a></span>-->
       </div>
       <div class="top-nav-right" ng-if="hassession">
-        <!--<span>
+        <span>
           <a ng-click="signout()" href='#/logout' class="btn pull-right btn-primary btn-default active">log out</a>
-        </span>-->
+        </span>
       </div>
     </div>
+
+<!--  <div class="jumbotron" ng-if="!hasSession">
+  <h1 class="display-3">CrowdCart</h1>
+  <p class="lead">Grocery List? Chuck it the crowd. Crowdsourcing at its finest.</p>
+  <hr class="m-y-2">
+  <p class="lead">
+    <div class="delivery-address">
+    <uib-accordion>
+      <div uib-accordion-group class="panel-default" is-open="status.open">
+        <uib-accordion-heading>
+          <a class="btn btn-primary btn-sm" href="#" role="button">Learn more</a>
+          <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </uib-accordion-heading>
+          <div>
+            <p>Tired of doing the groceries? Share your grocery list with our community called "The Crowd".</p>
+            <p>Want to earn some extra cash? Join the crowd and take up any grocery list as a job you can fulfill.</p>
+            <hr />
+            <p>CrowdCart was founded in late 2016 by a group of HackReactor Alumni:</p>
+            <p>Henry Yang, Daniel Chang, Kyle Van Vleck and Ali Bhatti.</p>
+        </div>
+    </div>-->
     </uib-accordion>
   </div>
   </p>
 </div>
+
+
+<!-- Carousel -->
+
+<!--           this can prob be handled with ng-view -->
 
 
     <div ng-view></div>
@@ -63,7 +90,16 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-
+   <!-- <script src="/node_modules/spotify-personal-auth/index.js"></script>-->
+<!--
+    <script src="/node_modules/cors/lib/"></script>-->
+  <!--  <script src="/node_modules/qs"></script>-->
+<!--  <script src="spotifyApp.js"></script>-->
   </body>
 </html>
 
+<!-- TODO
+1. determine if header should be outside of ng-view
+2. set up ng-view div
+3. individual html for views (mylist, alllist, myjobs)
+4. connect all relevant js/css  -->

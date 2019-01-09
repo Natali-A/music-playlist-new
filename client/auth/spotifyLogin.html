@@ -21,7 +21,7 @@
         <button id="login-button2" class="btn btn-primary">Log in (client implicit_grant)</button>
         <button ng-click="spotifyLogin()">LogIn (server API)</button>
         <button ng-click="SpotifyRefresh()">refresh (server API)</button>
-
+        <button ng-click="check()">checck pls!!!!</button>
     </div>
     <div id="loggedin">
         <div id="user-profile">
@@ -60,13 +60,46 @@
 
 <script>
     (function() {
-console.log('hi! im here');
+        // Get the hash of the url
+        const hash = window.location.hash
+                .substring(1)
+                .split('&')
+                .reduce(function (initial, item) {
+                    if (item) {
+                        var parts = item.split('=');
+                        initial[parts[0]] = decodeURIComponent(parts[1]);
+                    }
+                    return initial;
+                }, {});
+        window.location.hash = '';
+
+// Set token
+        let _token = hash.access_token;
+
+        const authEndpoint = 'https://accounts.spotify.com/authorize';
+
+// Replace with your app's client ID, redirect URI and desired scopes
+        const clientId = '2e23ac219fa04c92bf1c870156ed0c83';
+        const redirectUri = 'http://localhost:8888/callback';
+        const scopes = [
+            'user-read-birthdate',
+            'user-read-email',
+            'user-read-private'
+        ];
+
+// If there is no token, redirect to Spotify authorization
+        if (!_token) {
+            window.location = "${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token";
+        }
+
+
+      /*  console.log('hi! im here');
         var stateKey = 'spotify_auth_state';
 
-        /**
+        /!**
          * Obtains parameters from the hash of the URL
          * @return Object
-         */
+         *!/
         function getHashParams() {
             var hashParams = {};
             var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -77,11 +110,11 @@ console.log('hi! im here');
             return hashParams;
         }
 
-        /**
+        /!**
          * Generates a random string containing numbers and letters
          * @param  {number} length The length of the string
          * @return {string} The generated string
-         */
+         *!/
         function generateRandomString(length) {
             var text = '';
             var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -180,6 +213,6 @@ console.log('hi! im here');
 
                 window.location = url;
             }, false);
-        }
+        }*/
     })();
 </script>

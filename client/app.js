@@ -5,12 +5,12 @@ angular.module("crowdcart", [
   "crowdcart.jobs",
   "crowdcart.services",
   "ngRoute",
-  "ui.bootstrap",
-  // "angularMoment"
+  "ui.bootstrap"
 ])
 
 //config/routing
 .config(function ($routeProvider, $httpProvider) {
+
   $routeProvider
     .when('/signin', {
       templateUrl: 'auth/signin.html',
@@ -26,12 +26,11 @@ angular.module("crowdcart", [
     })
     .when('/spotifyLogin', {
       templateUrl: 'auth/spotifyLogin.html',
-      controller: 'AuthController'
+      controller: 'AuthController',
     })
     .when('/mylists', {
       templateUrl: 'lists/mylists.html',
       controller: 'ListsController',
-      authenticate: true
     })
      .when('/createnewlist', {
       templateUrl: 'lists/createnewlist.html',
@@ -41,7 +40,6 @@ angular.module("crowdcart", [
     .when('/alllists', {
       templateUrl: 'lists/alllists.html',
       controller: 'ListsController',
-      authenticate: true
     })
     .when('/myjobs', {
       templateUrl: 'jobs/myjobs.html',
@@ -56,27 +54,27 @@ angular.module("crowdcart", [
     }).
       when('/allplaylists', {
     templateUrl: 'playlists/alllists.html',
-    controller: 'PlayListController',
-        authenticate: true
+    controller: 'PlayListController'
   }).
       when('/playlistDetail/:listid', {
         templateUrl: 'playlists/listdetail.html',
         controller: 'PlayListController'
-  }).when('/natali',{ templateUrl: 'auth/natali.html', controller: 'AuthController'});
+  });
     /*.otherwise({
       redirectTo: "/mylists"
     });
 */
+
     $httpProvider.interceptors.push('AttachTokens');
 
 })
 
 // main app controller, not inside a ng-view, hanldes signout
 .controller('AppController', function ($scope, Auth, $rootScope) {
-  $rootScope.hasSession = Auth.isAuthenticated();
+/*  $rootScope.hasSession = Auth.isAuthenticated();
   $scope.signout = function(){
     Auth.signout();
-  }
+  }*/
 })
 
 .factory('AttachTokens', function ($window) {
@@ -97,6 +95,7 @@ angular.module("crowdcart", [
   return attach;
 })
 
+/*
 // run directive
 .run(function($rootScope, $location, Auth){
   $rootScope.$on('$routeChangeStart', function(event, next, current){
@@ -106,4 +105,4 @@ angular.module("crowdcart", [
     }
     $rootScope.hasSession = Auth.isAuthenticated();
   });
-});
+});*/

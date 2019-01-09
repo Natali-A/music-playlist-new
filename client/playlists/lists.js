@@ -52,11 +52,42 @@ angular.module("crowdcart.lists", ["angularMoment"])
             }
         }
 
-        var initialize = function () {
-            // console.log('userId: ',$scope.userid)
-            // console.log($rootScope)
-            // console.log('user', $scope.city)
 
+        function getHashParams() {
+             debugger;
+             console.log("getHashParams()");
+             var hashParams = {};
+             var e, r = /([^&;=]+)=?([^&;]*)/g,
+             q = $window.location.hash.substring(1);
+             while ( e = r.exec(q)) {
+             hashParams[e[1]] = decodeURIComponent(e[2]);
+             }
+             return hashParams;
+         }
+
+         var params = getHashParams();
+
+         var access_token = params.access_token;
+         var refresh_token = params.refresh_token;
+
+         console.log('params', params);
+
+
+         function getUserDetails() {
+             debugger;
+             console.log('dddddddddddddddddddddd');
+             /*$.ajax({
+             url: 'https://api.spotify.com/v1/me',
+             headers: {
+                'Authorization': 'Bearer ' + access_token
+             },
+             success: function(response) {
+                console.log('response getUserDetails', response);
+             }
+             });*/
+         }
+
+        var initialize = function () {
             // is routePararms exists it means directed here via URL
             if ($routeParams.listid) {
                 Lists.getOnePlayList($routeParams.listid)
@@ -85,6 +116,14 @@ angular.module("crowdcart.lists", ["angularMoment"])
                 .catch(function(error){
                     console.error(error);
                 });
+
+            console.log('getUserDetails();');
+            var params = getHashParams();
+
+            var access_token = params.access_token;
+            var refresh_token = params.refresh_token;
+
+            getUserDetails();
         };
 
         $scope.displayDetail = function(listid) {

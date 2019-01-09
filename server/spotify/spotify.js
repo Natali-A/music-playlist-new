@@ -2,19 +2,12 @@
  * Created by Natali on 12/30/2018.
  */
 var request = require('request'); // "Request" library
-var cors = require('cors');
 var querystring = require('querystring');
-var cookieParser = require('cookie-parser');
 
 var client_id = '2e23ac219fa04c92bf1c870156ed0c83'; // Your client id
 var client_secret = 'beb1afe554d24776baebefad3dcfe6e7'; // Your secret
-var redirect_uri = 'http://localhost:1337/#/spotifyLogin'; // Your redirect uri
-/*
-var client_id = 'cc82ac3b5afe46c4a3af7525acf9a873';
-var client_secret = '9838e7a885cd40b29ec44b1e7a40d826';
-var redirect_uri = 'http://localhost:1337/callback';
-*/
-
+var redirect_uri = 'http://localhost:1337/api/SpotifyCallback'; // Your redirect uri
+//var redirect_uri = 'http://localhost:1337/#/allplaylists'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -100,7 +93,7 @@ var callback = function(req, res) {
                 });
 
                 // we can also pass the token to the browser to make requests from there
-                res.redirect('/#' +
+                res.redirect('/#/allplaylists' +
                     querystring.stringify({
                         access_token: access_token,
                         refresh_token: refresh_token
