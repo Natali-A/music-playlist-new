@@ -1,18 +1,9 @@
-<!-- All Lists View -->
-
-<div class="user-details media">
-    <div class="pull-left">
-        <img class="media-object" width="150" src="{{user_img}}" />
-    </div>
-    <div class="media-body">
-        <dl class="dl-horizontal">
-            <dt>Display name</dt><dd class="clearfix">{{displayName}}</dd>
-            <dt>Id</dt><dd>{{id}}</dd>
-        </dl>
-    </div>
+<div class="user">
+    <h4>Hello {{displayName}}</h4>!
+    <img src={{user_img}} />
 </div>
 <div class="all-lists contents-container">
-    <h3>All Open Lists</h2>
+    <h5>All Open Lists</h5>
         <table class="table table-hover">
             <thead>
             <tr>
@@ -28,7 +19,7 @@
                 <td>{{ list.owner}}</td>
                 <td>{{ list.tracks.length }}</td>
                 <!--<td>{{ list._id }}</td>-->
-               <!-- <td><a ng-click="addJob(list)" class="btn btn-primary btn-sm active">Add Job</a></td>-->
+                <!-- <td><a ng-click="addJob(list)" class="btn btn-primary btn-sm active">Add Job</a></td>-->
             </tr>
             </tbody>
         </table>

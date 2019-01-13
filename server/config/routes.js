@@ -20,6 +20,8 @@ module.exports = function(app, express){
   app.get('/api/SpotifyLogin', Spotify.login);
   app.get('/api/SpotifyCallback', Spotify.callback);
   app.get('/api/SpotifyRefresh_token',Spotify.refresh_token);
+  app.post('/api/getLoggedInUser', Spotify.getLoggedInUser);
+  app.post('/api/getLoggedInPlaylists', Spotify.getLoggedInPlaylists);
 
 
   // POST - addList

@@ -59,6 +59,10 @@ angular.module("crowdcart", [
       when('/playlistDetail/:listid', {
         templateUrl: 'playlists/listdetail.html',
         controller: 'PlayListController'
+  }).
+  when('/loggedIn', {
+    templateUrl: 'playlists/newAllLists.html',
+    controller: 'NewPlayListController'
   });
     /*.otherwise({
       redirectTo: "/mylists"
