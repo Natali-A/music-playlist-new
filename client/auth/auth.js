@@ -13,42 +13,6 @@ app.controller('AuthController', function ($scope, $window, $location, $http, Au
     }
 
 
-    var initialize = function () {
-
-        var params = getHashParams();
-        $scope.access_token = params.access_token;
-        $scope.refresh_token = params.refresh_token;
-        $scope.error = params.error;
-
-        console.log('params', params);
-
-        if ($scope.error) {
-            console.log('There was an error during the authentication');
-        } else if ($scope.access_token) {
-            // save params to localStorage
-            $window.localStorage.setItem('access_token',$scope.access_token);
-            $window.localStorage.setItem('refresh_token',$scope.refresh_token);
-
-            // get user profile data
-            $http.post('/api/getLoggedInUser', {access_token : $scope.access_token}).then(function(res) {
-                console.log('getLoggedInUser res', res);
-                $scope.displayName = res.data.display_name;
-                $scope.user_img = res.data.images[0].url;
-
-            });
-
-            // get user's playlists
-            $http.post('/api/getLoggedInPlaylists', {access_token : $scope.access_token}).then(function(res) {
-                console.log('getLoggedInPlaylists res', res);
-                $scope.NumOfPlaylists = res.data.total;
-                $scope.playlistsData = res.data.items;
-            })
-        }
-
-
-
-    };
-
 
   $scope.signin = function () {
     Auth.signin($scope.user)
@@ -89,7 +53,6 @@ app.controller('AuthController', function ($scope, $window, $location, $http, Au
         });
     }
 
-    initialize();
 });
 
 // make and auth controller

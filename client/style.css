@@ -71,3 +71,7 @@ img.listItemImg {
 .logo {
   height: 75px;
 }
+
+img.listitem-img {
+  width: 50px;
+}

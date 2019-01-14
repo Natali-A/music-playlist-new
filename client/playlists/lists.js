@@ -3,7 +3,7 @@
  */
 angular.module("crowdcart.lists", ["angularMoment"])
 
-    .controller("PlayListController", function ($scope, Lists, Tracks, $window, $location, $rootScope, $routeParams, $interval) {
+    .controller("PlayListController", function ($scope, Lists, Tracks, $window, $location, $rootScope, $routeParams, $http, $interval) {
 
         // storage objs
         $scope.data = {};
@@ -35,8 +35,7 @@ angular.module("crowdcart.lists", ["angularMoment"])
         function calcDuration(list) {
             var ms_sum = 0;
             for(i=0; i<list.length; i++) {
-                ms_sum += list[i].duration_ms;
-                console.log($scope.durationTime);
+                ms_sum += list[i].track.duration_ms;
             }
 
             $scope.durationTime = $scope.millisToMinutesAndSeconds(ms_sum);
@@ -45,7 +44,7 @@ angular.module("crowdcart.lists", ["angularMoment"])
         $scope.likesDict = {};
         function getLikesPerTrack(list) {
             for(i=0; i < list.length; i++) {
-                var elm = list[i];
+                var elm = list[i].track;
                 Tracks.getTrackById(elm.id).then(function(data) {
                     $scope.likesDict[data.track_id] = data.likes;
                 });
@@ -53,77 +52,66 @@ angular.module("crowdcart.lists", ["angularMoment"])
         }
 
 
-        function getHashParams() {
-             debugger;
-             console.log("getHashParams()");
-             var hashParams = {};
-             var e, r = /([^&;=]+)=?([^&;]*)/g,
-             q = $window.location.hash.substring(1);
-             while ( e = r.exec(q)) {
-             hashParams[e[1]] = decodeURIComponent(e[2]);
-             }
-             return hashParams;
-         }
-
-         var params = getHashParams();
-
-         var access_token = params.access_token;
-         var refresh_token = params.refresh_token;
-
-         console.log('params', params);
-
-
-         function getUserDetails() {
-             debugger;
-             console.log('dddddddddddddddddddddd');
-             /*$.ajax({
-             url: 'https://api.spotify.com/v1/me',
-             headers: {
-                'Authorization': 'Bearer ' + access_token
-             },
-             success: function(response) {
-                console.log('response getUserDetails', response);
-             }
-             });*/
-         }
-
         var initialize = function () {
+            $scope.access_token = $window.localStorage.getItem('access_token');
+
             // is routePararms exists it means directed here via URL
             if ($routeParams.listid) {
+                // check if this playlist is already exists in my DB
+
+                function getOnePlayListError(err, list_id) {
+                    console.log('playlist id:' + list_id + ', does not exist');
+ //                   console.log('tokeeeeeeeen', $scope.access_token);
+
+                    // get it from spotifyapi
+                    $http.post('api/getPlayListSpotify', {access_token : $scope.access_token, playlist_id: list_id}).then(function(res) {
+                        console.log('addPlaylist res', res);
+
+                        // add it to my DB
+                        var newPlaylist = {
+                            id: res.data.id,
+                            name: res.data.name,
+                            owner_name: res.data.owner.display_name,
+                            tracks: res.data.tracks,
+                            images: res.data.images,
+                            href: res.data.href
+                        };
+                        console.log('new',newPlaylist);
+
+                        $http.post('/api/playlists', {newPlaylist: newPlaylist}).then(function(res) {
+                            console.log('finish to add newPlaylist to DB');
+                        });
+
+                        // add each of the tracks to TrackToPlaylist Collection
+                        var items = res.data.tracks.items;
+                        for(i=0; i<items.length; i++)
+                        {
+                            var newTrackToPlaylist = {
+                                playlist_id: res.data.id,
+                                track_id: items[i].track.id,
+                                likes : []
+                            };
+                            $http.post('/api/tracks', {newTrackToPlaylist: newTrackToPlaylist}).then(function(res) {
+
+                            });
+                        }
+                    });
+                }
+
                 Lists.getOnePlayList($routeParams.listid)
                     .then(function (list) {
-                        console.log('nataaa', list);
+                        // if exists - show data (likes etc...)
+                        console.log('playlist exists', list);
                         $scope.displayList = list;
-                        calcDuration(list.tracks);
+                        calcDuration(list.tracks[0].items);
                         $scope.playlistCreated = (new Date(list.created_at)).toLocaleString();
-                        getLikesPerTrack(list.tracks);
+                        getLikesPerTrack(list.tracks[0].items);
+                    })
+                    // else
+                    .catch(function(err) {
+                        getOnePlayListError(err, $routeParams.listid);
                     });
-            }
-
-            //Get all lists belong to user
-            Lists.getLists($scope.userid)
-                .then(function (lists) {
-                    $scope.data.lists = lists;
-                })
-                .catch(function (error) {
-                    console.error(error);
-                });
-
-            Lists.getAllPlaylists()
-                .then(function(allLists){
-                    $scope.data.allLists = allLists;
-                })
-                .catch(function(error){
-                    console.error(error);
-                });
-
-            console.log('getUserDetails();');
-            var params = getHashParams();
-
-            var access_token = params.access_token;
-            var refresh_token = params.refresh_token;
-
-            getUserDetails();
+            };
         };
 
         $scope.displayDetail = function(listid) {
@@ -137,9 +125,8 @@ angular.module("crowdcart.lists", ["angularMoment"])
         };
 
         $scope.getArtistsString = function(index) {
-            return ($scope.displayList.tracks[index].artists.map(mapFunc).join(', '));
+            return ($scope.displayList.tracks[0].items[index].track.artists.map(mapFunc).join(', '));
         };
-
 
 
 
@@ -174,7 +161,7 @@ angular.module("crowdcart.lists", ["angularMoment"])
                 .then(function () {
                     $scope.data.lists.splice(idx, 1)
                 })
-        }
+        };
 
 
         //Add a job, update the deliverer id to user's id
@@ -397,8 +384,6 @@ angular.module("crowdcart.lists", ["angularMoment"])
 
 
         var initialize = function () {
-
-            debugger;
             var params = getHashParams();
             $scope.access_token = params.access_token;
             $scope.refresh_token = params.refresh_token;
@@ -418,7 +403,6 @@ angular.module("crowdcart.lists", ["angularMoment"])
                     console.log('getLoggedInUser res', res);
                     $scope.displayName = res.data.display_name;
                     $scope.user_img = res.data.images[0].url;
-
                 });
 
                 // get user's playlists
@@ -428,9 +412,11 @@ angular.module("crowdcart.lists", ["angularMoment"])
                     $scope.allLists = res.data.items;
                 })
             }
+        };
 
-
-
+        $scope.displayDetail = function(listid) {
+            // simple redirect
+            $location.path("/playlistDetail/" + listid)
         };
 
         initialize();

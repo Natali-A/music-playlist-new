@@ -11,9 +11,10 @@ var PlaylistsSchema = new mongoose.Schema({
         default: Date.now
     },
 
-    owner_id: String,
+    owner_name: String,
     tracks : [],
-    images: []
+    images: [],
+    href: String
 });
 
 module.exports = mongoose.model('Playlists', PlaylistsSchema);

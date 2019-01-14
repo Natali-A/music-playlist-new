@@ -9,8 +9,8 @@ var Playlists = require('../playlists/playlistsModel.js');
 module.exports = {
     // addList method
     addList: function(req, res){
-        var newListObj = req.body;
-
+        var newListObj = req.body.newPlaylist;
+        console.log(newListObj);
         Playlists.create(newListObj, function(err, list){
             if (err) { // notifies if error is thrown
                 console.log("mongo create list err: ", err);
@@ -64,7 +64,7 @@ module.exports = {
     getOneList: function(req, res){
         var listid = req.params.id;
 
-        Playlists.findOne({'_id': listid}, function(err, list){
+        Playlists.findOne({'id': listid}, function(err, list){
             if (err) { // notifies if error is thrown
                 console.log("mongo findOne list err: ", err);
                 helper.sendError(err, req, res);

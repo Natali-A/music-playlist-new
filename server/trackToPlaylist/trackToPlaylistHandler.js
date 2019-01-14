@@ -9,7 +9,7 @@ module.exports = {
     addTrackToPlayList: function(req, res){
         console.log('adding....');
 
-        var newListObj = req.body;
+        var newListObj = req.body.newTrackToPlaylist;
 
         TrackToPlaylist.create(newListObj, function(err, list){
             if (err) { // notifies if error is thrown

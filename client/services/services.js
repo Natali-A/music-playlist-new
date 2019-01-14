@@ -138,6 +138,14 @@ angular.module("crowdcart.services",[])
         })
   };
 
+  var addOnePlaylist = function(list) {
+    return $http({
+      method: "POST",
+      url: "/api/playlists",
+      data: list
+    });
+  }
+
   var getAllPlaylists = function() {
     return $http({
       method: "GET",
@@ -178,8 +186,6 @@ angular.module("crowdcart.services",[])
   };
 
   var getTrackById = function(trackID) {
-    console.log('herrrrrrrrrrre');
-    console.log(trackID);
     return $http({
       method: "GET",
       url: "/api/tracks/" + trackID

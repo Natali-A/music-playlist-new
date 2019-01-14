@@ -4,7 +4,6 @@
 var mongoose = require('mongoose');
 
 var TracksToPlaylistsSchema = new mongoose.Schema({
-    id: String,
     playlist_id: String,
     track_id: String,
     likes : []

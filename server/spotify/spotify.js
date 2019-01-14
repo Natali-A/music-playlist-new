@@ -139,7 +139,29 @@ var getLoggedInPlaylists = function(req, res) {
 //        console.log(body);
         res.json(body);
     });
+};
+
+var getPlayListSpotify = function (req, res) {
+    console.log('getPlayListSpotify');
+    var access_token = req.body.access_token;
+    var playlist_id = req.body.playlist_id;
+
+    var options = {
+        url: 'https://api.spotify.com/v1/playlists/' + playlist_id,
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        json: true
+    };
+
+    // use the access token to access the Spotify Web API
+    request.get(options, function(error, response, body) {
+//        console.log(body);
+        res.json(body);
+    });
 }
+
+var addPlaylist = function(req, res) {
+
+};
 
 var refresh_token = function(req, res) {
 
@@ -173,5 +195,6 @@ module.exports = {
     callback:callback,
     refresh_token: refresh_token,
     getLoggedInUser : getLoggedInUser,
-    getLoggedInPlaylists: getLoggedInPlaylists
+    getLoggedInPlaylists: getLoggedInPlaylists,
+    getPlayListSpotify: getPlayListSpotify
 };

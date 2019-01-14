@@ -2,9 +2,9 @@
 <div class="listdetail contents-container">
     <h2 class="detail-header"><span>{{ displayList.name }}</span></h2>
     <h6 class="detail-header" style="justify-content: end">
-        <span>Created by <b>{{ displayList.owner }}</b></span>
+        <span>Created by <b>{{ displayList.owner_name }}</b></span>
         <span class="spacer">&diams;</span>
-        <span> {{displayList.tracks.length}} Songs, {{ durationTime }} min</span>
+        <span> {{displayList.tracks[0].items.length}} Songs, {{ durationTime }} min</span>
         <span class="spacer">&diams;</span>
         <span>{{ playlistCreated }}</span>
     </h6>
@@ -22,13 +22,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="(key, item) in displayList.tracks" track-id={{item.id}}>
-                        <td><img class="listItemImg" src={{item.album.images[0].url}} /></td>
-                        <td>{{ item.name }}</td>
+                    <tr ng-repeat="(key, item) in displayList.tracks[0].items" track-id={{item.id}}>
+                        <td><img class="listItemImg" src={{item.track.album.images[0].url}} /></td>
+                        <td>{{ item.track.name }}</td>
                         <td>{{ getArtistsString(key) }}</td>
-                        <td> {{ millisToMinutesAndSeconds(item.duration_ms)}} </td>
-                        <td> {{ item.added_by }}</td>
-                        <td title={{likesDict[item.id].join(',')}}> {{ likesDict[item.id].length }}</td>
+                        <td> {{ millisToMinutesAndSeconds(item.track.duration_ms)}} </td>
+                        <td> {{ item.track.added_by }}</td>
+                        <td title={{likesDict[item.track.id].join(',')}}> {{ likesDict[item.track.id].length }}</td>
                     </tr>
                     </tbody>
                 </table>
