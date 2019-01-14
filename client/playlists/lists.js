@@ -379,6 +379,7 @@ angular.module("crowdcart.lists", ["angularMoment"])
             while ( e = r.exec(q)) {
                 hashParams[e[1]] = decodeURIComponent(e[2]);
             }
+
             return hashParams;
         }
 
@@ -416,6 +417,9 @@ angular.module("crowdcart.lists", ["angularMoment"])
 
         $scope.displayDetail = function(listid) {
             // simple redirect
+            $location.search('access_token', null);
+            $location.search('refresh_token', null);
+            
             $location.path("/playlistDetail/" + listid)
         };
 
