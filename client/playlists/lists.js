@@ -1,6 +1,7 @@
 /**
  * Created by Natali on 12/24/2018.
- */
+ * Added by Ronen Ben-David 25.2.2019
+ **/
 angular.module("crowdcart.lists", ["angularMoment"])
 
     .controller("PlayListController", function ($scope, Lists, Tracks, $window, $location, $rootScope, $routeParams, $http, $interval) {
@@ -135,6 +136,15 @@ angular.module("crowdcart.lists", ["angularMoment"])
             $location.path("/playlistDetail/" + listid)
         };
 
+        $scope.shareList = function(listid) {
+            for(var i = 0; i < $scope.allLists.Length; i++){
+                if($scope.allLists[i].id === listid){
+                    alert($scope.allLists[i].external_urls.spotify)
+                }
+            }
+            // simple redirect
+            //$location.path("/playlistDetail/" + listid)
+        };
 
         function mapFunc(a) {
             return a.name;
@@ -420,7 +430,7 @@ angular.module("crowdcart.lists", ["angularMoment"])
 
     })
 
-    .controller("NewPlayListController", function ($scope, Lists, Tracks, $window, $location, $http) {
+    .controller("NewPlayListController", function ($scope, Lists, Tracks, $window, $location, $http,$compile,$rootScope,$document) {
         function getHashParams() {
             var hashParams = {};
             var e, r = /([^&;=]+)=?([^&;]*)/g;
@@ -473,9 +483,54 @@ angular.module("crowdcart.lists", ["angularMoment"])
             // simple redirect
             $location.search('access_token', null);
             $location.search('refresh_token', null);
-
-            $location.path("/playlistDetail/" + listid)
+            
+            $location.path("/playlistDetail/" + listid);
         };
+	$scope.shareList = function(listid) {
+            for(var i = 0; i < $scope.allLists.length; i++){
+                if($scope.allLists[i].id === listid){
+                    var value = $scope.allLists[i].external_urls.spotify;
+                    //alert("Copy the link to Clipboard and share with friends");
+                    alert( "Copied URL: " + value);
+                    $scope.CopyToClipboard(value);
+                }
+            }
+            // simple redirect
+            //$location.path("/playlistDetail/" + listid)
+        };
+
+        $scope.popitup = function(url, target) {
+            $window.open(url, target);
+        };
+
+        $scope.CopyToClipboard = function(element) {
+
+                var copyElement = angular.element('<span id="ngClipboardCopyId">'+ element +'</span>');
+                var body = $document.find('body').eq(0);
+                body.append($compile(copyElement)($rootScope));
+
+                var ngClipboardElement = angular.element(document.getElementById('ngClipboardCopyId'));
+
+                console.log(ngClipboardElement);
+                var range = document.createRange();
+
+                //range.selectNode(ngClipboardElement[0]);
+                range.setStartBefore(ngClipboardElement[0]);
+                range.setEndAfter(ngClipboardElement[0]);
+
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+
+                var successful = document.execCommand('copy');
+
+                var msg = successful ? 'successful' : 'unsuccessful';
+                console.log('Copying text command was ' + msg);
+                window.getSelection().removeAllRanges();
+
+                copyElement.remove();
+
+        };
+
 
         initialize();
 

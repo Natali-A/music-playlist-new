@@ -1,7 +1,7 @@
 // require userHandler, listHandler
 var userHandler = require('../users/userHandler.js');
 var listHandler = require('../lists/listHandler.js');
-var PlaylistsHandler = require('../playlists/PlaylistsHandler');
+var PlaylistsHandler = require('../playlists/playlistsHandler.js');
 var TrackToPlaylistHandler = require('../trackToPlaylist/trackToPlaylistHandler.js');
 var Spotify = require('../spotify/spotify');
 

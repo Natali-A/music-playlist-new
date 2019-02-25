@@ -157,6 +157,16 @@ angular.module("crowdcart.services",[])
         })
   };
 
+  function getUser(id) {
+    return $http({
+      method: "GET",
+      url: "/api/users/" + id
+    })
+        .then(function(res){
+          // console.log('User Name: ', res.data);
+          return res.data;
+        })
+  };
   return {
     getLists: getLists,
     getAllList: getAllList,
@@ -167,7 +177,8 @@ angular.module("crowdcart.services",[])
     updateList: updateList,
     deleteList: deleteList,
     getOnePlayList: getOnePlayList,
-    getAllPlaylists:getAllPlaylists
+    getAllPlaylists:getAllPlaylists,
+    getUser:getUser
   }
 
 })

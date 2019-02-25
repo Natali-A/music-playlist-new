@@ -26,7 +26,9 @@ function a1 (token, refresh) {
 
     return api.getMyTopTracks();
 };
-
+function getUser(id) {
+    return api.getUser(id);
+};
 function a22(item) {
     return item['uri'];
 }

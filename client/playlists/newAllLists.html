@@ -6,29 +6,137 @@
     </div>
     <div class="media-body">
         <dl class="dl-horizontal">
-            <dt>Hi</dt>{{displayName}}!</dd>
+            <dt>Hello ,</dt>{{displayName}}!</dd>
         </dl>
     </div>
 </div>
 <div class="all-lists contents-container">
-    <h3>You have {{NumOfPlaylists}} playlists: </h2>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Tracks Number</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="list in allLists | orderBy:'due_at' | filter:search" listitem-id={{list.id}} ng-click="displayDetail(list.id)">
-                <td><img class="listitem-img" src="{{list.images[0].url}}"/></td>
-                <td>{{ list.name }}</td>
-                <td>{{ list.tracks.total }}</td>
-                <!--<td>{{ list._id }}</td>-->
-                <!-- <td><a ng-click="addJob(list)" class="btn btn-primary btn-sm active">Add Job</a></td>-->
-            </tr>
-            </tbody>
-        </table>
+    <h2>You have {{NumOfPlaylists}} playlists: </h2>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Playlist Name</th>
+            <th>Tracks Count</th>
+            <th>Copy to Clipboard</th>
+            <th>Share</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--<tr ng-repeat="list in allLists | orderBy:'due_at' | filter:search" listitem-id={{list.id}} ng-click="displayDetail(list.id)">-->
+
+        <tr ng-repeat="list in allLists | orderBy:'due_at' | filter:search" listitem-id={{list.id}} ng-dblclick="displayDetail(list.id)">
+            <td><img class="listitem-img" src="{{list.images[0].url}}" /> </td>
+            <td>{{ list.name }} </td>
+            <td>{{ list.tracks.total}} </td>
+            <!--<td><input type="button" ng-click="shareList(list.id); $event.stopPropagation();" value="Share"/></td>-->
+            <td>
+                <div class="top-nav-left;">
+                    <!--<input type="text" class="test" style="" ng-copyable="" /> -->
+                    <div class="row mobile-social-share">
+                        <!--<div class="col-md-9">
+                            <h3>Share</h3>
+                        </div> -->
+                        <div id="socialHolder" class="col-md-3">
+                            <div id="socialShare" class="btn-group share-group">
+                                <!--<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com."
+                                   title="Share by Email">
+                                    <img src="http://png-2.findicons.com/files/icons/573/must_have/48/mail.png">
+                                </a>-->
+                                <a data-toggle="dropdown" class="btn btn-info"  ng-click="shareList(list.id);$event.stopPropagation();" >
+                                    <i class="fa fa-share-alt fa-inverse"></i>
+
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="top-nav-left;">
+                    <!--<input type="text" class="test" style="" ng-copyable="" /> -->
+                    <div class="row mobile-social-share">
+                        <!--<div class="col-md-9">
+                            <h3>Share</h3>
+                        </div> -->
+                        <div id="socialHolder" class="col-md-3">
+                            <div id="socialShare" class="btn-group share-group">
+
+                               <a data-toggle="dropdown" class="btn btn-info dropdown-toggle share"  ng-click="shareList(list.id)$event.stopPropagation();" >
+                                    <i class="fa fa-share-alt fa-inverse"></i>
+
+                                </a>
+
+
+                               <!-- <button href="#" data-toggle="dropdown" class="btn btn-info dropdown-toggle share";z-index: 50; ng-click="dropdown-menu;$event.stopPropagation();">
+                                    <span class="caret"></span>
+                                    <i class="fa fa-share-alt fa-inverse"></i>
+                                </button>
+                                -->
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="fa fa-twitter"
+                                           class="twitter-share-button"
+                                           href="https://twitter.com/intent/tweet"
+                                           data-original-title="Twitter"
+                                           rel="tooltip"
+                                           data-size="large"
+                                           data-placement="left"
+                                           data-text="custom share text"
+                                           data-url="https://dev.twitter.com/web/tweet-button"
+                                           data-hashtags="example,demo"
+                                           data-via="twitterdev"
+                                           data-related="twitterapi,twitter"> Tweeter
+                                        </a>
+                                        <!--<a data-original-title="Twitter" rel="tooltip"  href="https://dev.twitter.com/web/tweet-button" class="btn btn-twitter" data-placement="left">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>-->
+                                    </li>
+                                    <li>
+                                        <a class="fa fa-facebook"
+                                           data-original-title="Facebook"
+                                           href = "https://www.facebook.com/dialog/send?app_id=174829003346&link=https%3A%2F%2Fopen.spotify.com%2Fuser%2F9hdiqd839xqi6a29rri8b8hfr%3Fsi%3DOv2xcAKkQdGRbzoT95H7kg&redirect_uri=https%3A%2F%2Fwww.spotify.com%2Fthanks-for-sharing%2F"
+
+                                           rel="tooltip"
+                                           data-size="large"
+                                           data-placement="left"
+                                           data-text="custom share text"> Facebook
+
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a  class="fa fa-google-plus"
+                                            href="https://plus.google.com/share?url=https://stackoverflow.com/questions/11868291/google-plus-share-and-parameters-in-url"
+                                            onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=100,width=100');return false;">
+                                            <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Google+"/>
+
+                                        </a>
+                                    </li>
+                                    <!--<li>
+                                        <a data-original-title="LinkedIn" rel="tooltip"  href="#" class="btn btn-linkedin" data-placement="left">
+                                            <i class="fa fa-linkedin"></i>
+                                        </a>
+                                    </li>-->
+                                    <li>
+                                        <a class="fa fa-envelope"
+                                           href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com."
+                                           title="Share by Email">
+                                            <img src="http://png-2.findicons.com/files/icons/573/must_have/16/mail.png">
+                                       </a>
+                                        <!--<a  data-original-title="Email" rel="tooltip" class="btn btn-mail" data-placement="left">
+                                            <i class="fa fa-envelope"></i>
+                                        </a>-->
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <!--<td>{{ list._id }}</td>-->
+            <!-- <td><a ng-click="addJob(list)" class="btn btn-primary btn-sm active">Add Job</a></td>-->
+        </tr>
+        </tbody>
+    </table>
 </div>
