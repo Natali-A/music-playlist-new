@@ -6,12 +6,12 @@ var TrackToPlaylist = require('../trackToPlaylist/trackToPlaylistModel.js');
 var Playlists = require('../playlists/playlistsModel.js');
 
 module.exports = {
-    addTrackToPlayList: function(req, res){
+    addTrackToPlayList: function (req, res) {
         console.log('adding....');
 
         var newListObj = req.body.newTrackToPlaylist;
 
-        TrackToPlaylist.create(newListObj, function(err, list){
+        TrackToPlaylist.create(newListObj, function (err, list) {
             if (err) { // notifies if error is thrown
                 console.log("mongo create list err: ", err);
                 helper.sendError(err, req, res);
@@ -23,10 +23,10 @@ module.exports = {
     },
 
     // getOneList method
-    getTracksByPlaylistID: function(req, res){
+    getTracksByPlaylistID: function (req, res) {
         var listid = req.params.id;
 
-        TrackToPlaylist.find({'playlist_id': listid}, function(err, list){
+        TrackToPlaylist.find({'playlist_id': listid}, function (err, list) {
             if (err) { // notifies if error is thrown
                 console.log("mongo findOne list err: ", err);
                 helper.sendError(err, req, res);
@@ -40,10 +40,10 @@ module.exports = {
         });
     },
 
-    getTrackById: function(req, res){
+    getTrackById: function (req, res) {
         var trackID = req.params.id;
 
-        TrackToPlaylist.findOne({'track_id': trackID}, function(err, list){
+        TrackToPlaylist.findOne({'track_id': trackID}, function (err, list) {
             if (err) { // notifies if error is thrown
                 console.log("mongo findOne list err: ", err);
                 helper.sendError(err, req, res);
@@ -55,5 +55,52 @@ module.exports = {
                 }
             }
         });
+    },
+
+
+
+
+    addLikeToTrack: function (req, res) {
+        //console.log("rex", req.body);
+        var playlistID = req.body.playlistID;
+        var trackID = req.body.trackID;
+        var userName = req.body.userName;
+        console.log("playlistID ", playlistID);
+        console.log("trackID: ", trackID);
+        console.log("userNamer: ", userName);
+
+        TrackToPlaylist.findOneAndUpdate({'playlist_id': playlistID, 'track_id': trackID},
+                                         { "$push": { likes : userName} },
+                                         {safe: true, upsert: true},
+            function(err, result){
+                if (err) { // notifies if error is thrown
+                    console.log("mongo update err: ", err);
+                } else { // update successful, returns result
+                    res.json(result);
+                }
+        });
+    },
+
+
+    removeLikeFromTrack: function (req, res) {
+        var playlistID = req.body.playlistID;
+        var trackID = req.body.trackID;
+        var userName = req.body.userName;
+        console.log("playlistID ", playlistID);
+        console.log("trackID: ", trackID);
+        console.log("userNamer: ", userName);
+
+        TrackToPlaylist.findOneAndUpdate({'playlist_id': playlistID, 'track_id': trackID},
+            { "$pull": { likes : userName} },
+            {safe: true, upsert: true},
+            function(err, result){
+                if (err) { // notifies if error is thrown
+                    console.log("mongo update err: ", err);
+                } else { // update successful, returns result
+                    res.json(result);
+                }
+            });
     }
 };
+
+

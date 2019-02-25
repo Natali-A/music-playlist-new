@@ -46,10 +46,16 @@ angular.module("crowdcart.lists", ["angularMoment"])
             for(i=0; i < list.length; i++) {
                 var elm = list[i].track;
                 Tracks.getTrackById(elm.id).then(function(data) {
-                    $scope.likesDict[data.track_id] = data.likes;
+                    var user = $window.localStorage.getItem("displayName");
+                    var val = !(data.likes.includes(user));
+
+                    $scope.likesDict[data.track_id] = {
+                        likes : data.likes, likeStatus: val
+                    };
+
                 });
             }
-        }
+        };
 
 
         var initialize = function () {
@@ -111,6 +117,16 @@ angular.module("crowdcart.lists", ["angularMoment"])
                     .catch(function(err) {
                         getOnePlayListError(err, $routeParams.listid);
                     });
+
+                // get user profile data
+                $http.post('/api/getLoggedInUser', {access_token : $scope.access_token}).then(function(res) {
+                    console.log('getLoggedInUser res', res);
+                    $scope.displayName = res.data.display_name;
+                    $scope.user_img = res.data.images[0].url;
+
+                    $window.localStorage.setItem('displayName',$scope.displayName);
+                });
+
             };
         };
 
@@ -128,6 +144,40 @@ angular.module("crowdcart.lists", ["angularMoment"])
             return ($scope.displayList.tracks[0].items[index].track.artists.map(mapFunc).join(', '));
         };
 
+
+
+        $scope.toggleLikeStatus = function(item){
+            var userName = $scope.displayName;
+            console.log('username', userName);
+            console.log($scope.displayList);
+            console.log(" item.track.id", item.track.id);
+            if ($scope.likesDict[item.track.id].likeStatus) {
+                $scope.likesDict[item.track.id].likes.push(userName);
+                Tracks.addLikeToTrack($scope.displayList.id, item.track.id, userName).then(function(list) {
+                    console.log("list", list);
+                });
+            }
+            else {
+                var index = $scope.likesDict[item.track.id].likes.indexOf(userName);
+                if (index !== -1) {
+                    $scope.likesDict[item.track.id].likes.splice(index, 1);
+                }
+                Tracks.removeLikeFromTrack($scope.displayList.id, item.track.id, userName).then(function(list) {
+                    console.log("list", list);
+                });
+            }
+
+
+            $scope.likesDict[item.track.id].likeStatus = !$scope.likesDict[item.track.id].likeStatus;
+           // item.likeStatus = !item.likeStatus;
+
+        };
+
+
+        $scope.likeBtnClicked = function(listid) {
+            alert(listid);
+            $scope.toggleLikeStatus(listid);
+        }
 
 
         //add new list method, will be attached into createnewlist.html
@@ -411,6 +461,10 @@ angular.module("crowdcart.lists", ["angularMoment"])
                     console.log('getLoggedInPlaylists res', res);
                     $scope.NumOfPlaylists = res.data.total;
                     $scope.allLists = res.data.items;
+
+                    for(i=0; i < $scope.allLists.length; i++) {
+                        $scope.allLists
+                    }
                 })
             }
         };
@@ -419,11 +473,13 @@ angular.module("crowdcart.lists", ["angularMoment"])
             // simple redirect
             $location.search('access_token', null);
             $location.search('refresh_token', null);
-            
+
             $location.path("/playlistDetail/" + listid)
         };
 
         initialize();
+
+
     });
 
 

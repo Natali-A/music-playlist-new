@@ -19,6 +19,7 @@
                         <th>Duration</th>
                         <th>Added by</th>
                         <th>Likes #</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -28,7 +29,14 @@
                         <td>{{ getArtistsString(key) }}</td>
                         <td> {{ millisToMinutesAndSeconds(item.track.duration_ms)}} </td>
                         <td> {{ item.track.added_by }}</td>
-                        <td title={{likesDict[item.track.id].join(',')}}> {{ likesDict[item.track.id].length }}</td>
+                        <td title={{likesDict[item.track.id].likes.join(',')}}> {{ likesDict[item.track.id].likes.length }}</td>
+                        <td ng-if="likesDict[item.track.id].likeStatus">
+                            <img class="likeBtn" ng-src="../images/likeBtn2.jpg" ng-click="toggleLikeStatus(item)"
+                                  ng-init="item.likeStatus= true">
+                        </td>
+                        <td ng-if="!likesDict[item.track.id].likeStatus">
+                            <img class="likeBtn" ng-src="../images/dislikeBtn.png" ng-click="toggleLikeStatus(item)">
+                        </td>
                     </tr>
                     </tbody>
                 </table>

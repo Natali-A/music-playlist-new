@@ -62,4 +62,6 @@ module.exports = function(app, express){
   app.post('/api/tracks', TrackToPlaylistHandler.addTrackToPlayList);
   app.get('/api/trackToPlaylist/:id', TrackToPlaylistHandler.getTracksByPlaylistID);
   app.get('/api/tracks/:id', TrackToPlaylistHandler.getTrackById);
+  app.post('/api/tracksLikes', TrackToPlaylistHandler.addLikeToTrack);
+  app.post('/api/tracksDeleteLikes', TrackToPlaylistHandler.removeLikeFromTrack);
 };

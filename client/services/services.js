@@ -144,7 +144,7 @@ angular.module("crowdcart.services",[])
       url: "/api/playlists",
       data: list
     });
-  }
+  };
 
   var getAllPlaylists = function() {
     return $http({
@@ -195,9 +195,27 @@ angular.module("crowdcart.services",[])
         })
   };
 
+  var addLikeToTrack = function(playListId, trackId, userName) {
+    return $http({
+      method: "POST",
+      url: "/api/tracksLikes",
+      data: { playlistID: playListId, trackID: trackId, userName: userName}
+    });
+  };
+
+  var removeLikeFromTrack = function(playListId, trackId, userName) {
+    return $http({
+      method: "POST",
+      url: "/api/tracksDeleteLikes",
+      data: { playlistID: playListId, trackID: trackId, userName: userName}
+    });
+  };
+
   return {
     getTracksByPlaylistID : getTracksByPlaylistID,
-    getTrackById : getTrackById
+    getTrackById : getTrackById,
+    addLikeToTrack: addLikeToTrack,
+    removeLikeFromTrack: removeLikeFromTrack
   };
 })
 
