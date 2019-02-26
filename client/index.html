@@ -4,6 +4,12 @@
 <html ng-app="crowdcart">
   <head>
     <title>Music Playlist</title>
+      <span style="color: green;font-faimly: helvetica; font-weight: bold; font-size: 12pt" >
+          Submitted by:
+      </span>
+      <span style="color: olive;font-faimly: helvetica; " >
+           Natali Achdoot & Ronen Ben David
+      </span> <br />
       <link rel="shortcut icon" type="image/jpg" href="m2.jpg" sizes="32x32"/>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -11,7 +17,7 @@
   <body ng-controller="AppController">
     <div class="top-nav">
       <div class="top-logo">
-       <!-- <img class="logo" src="m2.jpg" />-->
+       <img class="logo" src="m2.jpg" />
       </div>
       <div class="top-nav-left">
 <!--
@@ -19,7 +25,7 @@
           <span><a href='#/allplaylists' class="btn btn-primary btn-lg active top-nav-button">all playlists</a></span>-->
           <span> <a href="/api/SpotifyLogin" class="btn btn-primary">Log in with Spotify</a></span>
           <!-- <span><a href='#/myjobs' class="btn btn-primary btn-lg active top-nav-button">my jobs</a></span>-->
-          <!--<input type="text" class="test" style="" ng-copyable="" />
+          <!-- <input type="text" class="test" style="" ng-copyable="" />
           <div class="row mobile-social-share">
               <div class="col-md-9">
                   <h3>Share this content</h3>
@@ -69,7 +75,38 @@
           </div>
       </div> -->
       </div>
+        <div class="partial lead-image">
+            <div class="image-and-burst">
+
+
+                <div class="component lazy-image lead-media marquee_large_2x no-upscale rendered image-loaded" data-high-density="true" data-src="https://cdn-img.health.com/sites/default/files/styles/marquee_large_2x/public/styles/main/public/gettyimages-865272744.jpg?itok=LSVFDPtK" data-alt="sweat-proof-headphones" data-title="sweat-proof-headphones" data-shop-image="false" data-tracking-zone="image">
+
+                    <noscript>
+                        <div class="inner-container">
+                            <img src="https://cdn-img.health.com/sites/default/files/styles/marquee_large_2x/public/styles/main/public/gettyimages-865272744.jpg?itok&#x3D;LSVFDPtK" alt="sweat-proof-headphones" title="sweat-proof-headphones">
+                        </div>
+                    </noscript>
+
+                    <div class="inner-container js-inner-container  image-overlay"><img src="https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fcdn-img.health.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmarquee_large_2x%2Fpublic%2Fstyles%2Fmain%2Fpublic%2Fgettyimages-865272744.jpg%3Fitok%3DLSVFDPtK&amp;w=800&amp;c=sc&amp;poi=face&amp;q=85" alt="sweat-proof-headphones" title="sweat-proof-headphones">
+                        <span class="icon icon-pinterest-circle-solid social-icon centered " data-social-service="pinterest">
+                              <!--<a href="https://www.pinterest.com/pin/create/link/?url=https%3A%2F%2Fwww.health.com%2Ffitness%2Fsweat-proof-headphones%3Futm_source%3Dpinterest.com%26utm_medium%3Dsocial%26utm_campaign%3Dhealth%26utm_content%3D20190226%26utm_term%3D496665&amp;media=https%3A%2F%2Fcdn-img.health.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmarquee_large_2x%2Fpublic%2Fstyles%2Fmain%2Fpublic%2Fgettyimages-865272744.jpg%3Fitok%3DLSVFDPtK&amp;description=sweat-proof-headphones" class="display-block component popup external-link" title="pinterest share (opens in a new window)" aria-label="Pin this image (opens in a new window)" target="_blank">-->
+
+                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" tabindex="-1"><g fill="none" fill-rule="evenodd"><path d="M32 16c0 8.837-7.163 16-16 16S0 24.837 0 16 7.163 0 16 0s16 7.163 16 16" fill="#E54A59"></path><path d="M15.164 18.532c-.011.039-.022.072-.03.106-.503 1.97-.56 2.408-1.076 3.322-.246.436-.524.847-.832 1.242-.034.044-.067.102-.136.088-.076-.016-.082-.084-.09-.145-.083-.599-.128-1.2-.108-1.803.026-.788.123-1.058 1.139-5.327a.295.295 0 0 0-.024-.178c-.244-.656-.291-1.32-.079-1.995.459-1.456 2.11-1.567 2.398-.366.178.743-.292 1.716-.653 3.152-.299 1.186 1.097 2.03 2.29 1.163 1.1-.798 1.527-2.71 1.446-4.067-.16-2.703-3.125-3.287-5.005-2.417-2.157.997-2.647 3.67-1.673 4.891.123.156.219.25.177.408-.062.245-.117.49-.185.734-.05.182-.202.247-.385.173a2.212 2.212 0 0 1-.9-.675c-.827-1.024-1.064-3.049.03-4.763 1.21-1.9 3.463-2.668 5.52-2.435 2.457.28 4.01 1.958 4.3 3.863.133.867.038 3.006-1.18 4.518-1.402 1.737-3.672 1.852-4.72.786-.08-.082-.145-.178-.224-.275" fill="#FFF"></path></g></svg>
+
+
+                              </a>
+                          </span>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
       <div class="top-nav-right" ng-if="hassession">
+		<div class="bottom">
+			<img class="footer" src="2.jpg">
+		</div>
         <!--<span>
           <a ng-click="signout()" href='#/logout' class="btn pull-right btn-primary btn-default active">log out</a>
         </span>-->
